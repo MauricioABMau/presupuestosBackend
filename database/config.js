@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
 const Prueba = require('../models/prueba');
+const Usuarios = require('../models/usuario');
 
 
 const sequelize = new Sequelize('presupuesto', process.env.DB_USER, process.env.DB_PASS, {
@@ -8,6 +9,7 @@ const sequelize = new Sequelize('presupuesto', process.env.DB_USER, process.env.
     dialect: process.env.DB_DIALECT
 });
 const Pru = Prueba(sequelize, Sequelize);
+const Usuario = Usuarios(sequelize, Sequelize);
 
 sequelize.sync({ force: false })
     .then(() => {
@@ -18,5 +20,6 @@ console.log('BD Online');
 
 
 module.exports = {
-    Pru
+    Pru,
+    Usuario
 }
