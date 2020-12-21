@@ -5,12 +5,25 @@ const { Usuario } = require('../database/config');
 const { generarJWT } = require('../helpers/jwt');
 
 const getUsuarios = async(req, res) => {
+    desde = Number(req.query.desde) || 0;
 
-    const usuarios = await Usuario.findAll({ attributes: ['nombre', 'email', 'password', 'id'] });
+
+
+    const [usuarios, total] = await Promise.all([
+        Usuario
+        .findAll({
+            attributes: ['nombre', 'email', 'imagen', 'id'],
+            limit: 5,
+            offset: desde
+        }),
+
+        Usuario.count()
+    ]);
 
     res.json({
         ok: true,
         usuarios,
+        total,
         id: req.id
     });
 }

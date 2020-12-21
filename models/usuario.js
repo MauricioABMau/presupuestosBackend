@@ -12,6 +12,7 @@ module.exports = (sequelize, type) => {
         password: type.STRING(150),
         estado: type.STRING,
         rol: type.STRING,
+        imagen: type.STRING,
         google: type.BOOLEAN
     });
     //Ocultar password
@@ -21,5 +22,6 @@ module.exports = (sequelize, type) => {
         delete values.password;
         return values;
     }
+
     return usuario
 }
