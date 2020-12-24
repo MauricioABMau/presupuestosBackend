@@ -28,7 +28,36 @@ const ManoObra = ManoObras(sequelize, Sequelize);
 //Relacion de tablas
 Usuario.hasMany(Proyecto);
 Proyecto.belongsTo(Usuario);
+
+Usuario.hasMany(Presupuesto);
+Presupuesto.belongsTo(Usuario);
+
+Usuario.hasMany(Item);
+Item.belongsTo(Usuario);
+
+Usuario.hasMany(Material);
+Material.belongsTo(Usuario);
+
+Usuario.hasMany(ManoObra);
+ManoObra.belongsTo(Usuario);
+
+Usuario.hasMany(Herramienta);
+Herramienta.belongsTo(Usuario);
+
 Proyecto.hasOne(Presupuesto);
+Presupuesto.belongsTo(Proyecto);
+
+Presupuesto.hasMany(Item);
+Item.belongsTo(Presupuesto);
+
+Item.hasMany(Material);
+Material.belongsTo(Item);
+
+Item.hasMany(ManoObra);
+ManoObra.belongsTo(Item);
+
+Item.hasMany(Herramienta);
+Herramienta.belongsTo(Item);
 
 sequelize.sync({ force: false })
     .then(() => {

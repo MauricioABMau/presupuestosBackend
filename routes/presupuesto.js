@@ -18,12 +18,20 @@ const router = Router();
 
 router.get('/', getPresupuestos);
 
-router.post('/', [
-        validarJWT
+router.post('/:proId', [
+        validarJWT,
+        check('presupuesto_total', "El presupuesto total es requerido").not().isEmpty(),
+        check('presupuesto_precio_unitario', "El presupuesto parcial del proyecto es requerido").not().isEmpty(),
+        validarCampos
     ],
     crearPresupuestos)
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('presupuesto_total', "El presupuesto total es requerido").not().isEmpty(),
+        check('presupuesto_precio_unitario', "El presupuesto parcial del proyecto es requerido").not().isEmpty(),
+        validarCampos
+    ],
     actualizarPresupuestos);
 
 router.delete('/:id',

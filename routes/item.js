@@ -18,10 +18,24 @@ const router = Router();
 
 router.get('/', getItems);
 
-router.post('/', [],
+router.post('/:preId', [
+        validarJWT,
+        check('descripcion', "La descripcion es requerido").not().isEmpty(),
+        check('unidad', "La unidad es requerido").not().isEmpty(),
+        check('cantidad', "La cantidad  es requerido").not().isEmpty(),
+        check('precio_producto', "El  es requerido").not().isEmpty(),
+        validarCampos
+    ],
     crearItems)
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('descripcion', "La descripcion es requerido").not().isEmpty(),
+        check('unidad', "La unidad es requerido").not().isEmpty(),
+        check('cantidad', "La cantidad  es requerido").not().isEmpty(),
+        check('precio_producto', "El  es requerido").not().isEmpty(),
+        validarCampos
+    ],
     actualizarItems);
 
 router.delete('/:id',

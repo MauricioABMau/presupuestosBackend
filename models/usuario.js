@@ -8,9 +8,8 @@ module.exports = (sequelize, type) => {
         nombre: type.STRING,
         apellido: type.STRING,
         email: type.STRING,
-        fechaRegistro: type.STRING,
         password: type.STRING(150),
-        estado: type.STRING,
+        estado: type.BOOLEAN,
         rol: type.STRING,
         imagen: type.STRING,
         google: type.BOOLEAN

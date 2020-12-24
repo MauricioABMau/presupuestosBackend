@@ -12,7 +12,7 @@ const getUsuarios = async(req, res) => {
     const [usuarios, total] = await Promise.all([
         Usuario
         .findAll({
-            attributes: ['nombre', 'email', 'imagen', 'id'],
+            attributes: ['nombre', 'email', 'imagen', 'id', 'estado', 'rol', 'google'],
             limit: 5,
             offset: desde
         }),

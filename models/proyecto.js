@@ -8,7 +8,6 @@ module.exports = (sequelize, type) => {
         nombre_proyecto: type.STRING,
         departamento: type.STRING,
         direccion: type.STRING,
-        fechaCreacion: type.STRING,
     });
 
     return proyecto

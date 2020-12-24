@@ -21,14 +21,23 @@ router.get('/', getProyectos);
 router.post('/', [
         validarJWT,
         check('nombre_proyecto', 'El nombre del proyecto es necesario').not().isEmpty(),
+        check('departamento', "El nombre del proyecto es requerido").not().isEmpty(),
+        check('direccion', "El nombre del proyecto es requerido").not().isEmpty(),
         validarCampos
     ],
     crearProyectos)
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('nombre_proyecto', "El nombre del proyecto es requerido").not().isEmpty(),
+        check('departamento', "El nombre del proyecto es requerido").not().isEmpty(),
+        check('direccion', "El nombre del proyecto es requerido").not().isEmpty(),
+        validarCampos
+    ],
     actualizarProyectos);
 
 router.delete('/:id',
+    validarJWT,
     borrarProyectos)
 
 

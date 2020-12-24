@@ -18,10 +18,20 @@ const router = Router();
 
 router.get('/', getManoObra);
 
-router.post('/', [],
+router.post('/itId', [
+        validarJWT,
+        check('cargo', "El nombre del material es requerido").not().isEmpty(),
+        check('sueldo', "La cantidad es requerido").not().isEmpty(),
+        validarCampos
+    ],
     crearManoObra)
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('cargo', "El nombre del material es requerido").not().isEmpty(),
+        check('sueldo', "La cantidad es requerido").not().isEmpty(),
+        validarCampos
+    ],
     actualizarManoObra);
 
 router.delete('/:id',

@@ -18,10 +18,22 @@ const router = Router();
 
 router.get('/', getHerramientas);
 
-router.post('/', [],
+router.post('/:itId', [
+        validarJWT,
+        check('nombre_herramienta', "El nombre de la herramienta es requerido").not().isEmpty(),
+        check('tipo', "El tipo de herramienta es requerido").not().isEmpty(),
+        check('precio_herramienta', "El precio de la herramienta  es requerido").not().isEmpty(),
+        validarCampos
+    ],
     crearHerramientas)
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('nombre_herramienta', "El nombre de la herramienta es requerido").not().isEmpty(),
+        check('tipo', "El tipo de herramienta es requerido").not().isEmpty(),
+        check('precio_herramienta', "El precio de la herramienta  es requerido").not().isEmpty(),
+        validarCampos
+    ],
     actualizarHerramientas);
 
 router.delete('/:id',
