@@ -18,7 +18,7 @@ const router = Router();
 
 router.get('/', getManoObra);
 
-router.post('/itId', [
+router.post('/:itId', [
         validarJWT,
         check('cargo', "El nombre del material es requerido").not().isEmpty(),
         check('sueldo', "La cantidad es requerido").not().isEmpty(),

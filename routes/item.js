@@ -23,7 +23,7 @@ router.post('/:preId', [
         check('descripcion', "La descripcion es requerido").not().isEmpty(),
         check('unidad', "La unidad es requerido").not().isEmpty(),
         check('cantidad', "La cantidad  es requerido").not().isEmpty(),
-        check('precio_producto', "El  es requerido").not().isEmpty(),
+        check('precio_producto', "El precio del producto es requerido").not().isEmpty(),
         validarCampos
     ],
     crearItems)
@@ -33,7 +33,7 @@ router.put('/:id', [
         check('descripcion', "La descripcion es requerido").not().isEmpty(),
         check('unidad', "La unidad es requerido").not().isEmpty(),
         check('cantidad', "La cantidad  es requerido").not().isEmpty(),
-        check('precio_producto', "El  es requerido").not().isEmpty(),
+        check('precio_producto', "El precio del producto es requerido").not().isEmpty(),
         validarCampos
     ],
     actualizarItems);

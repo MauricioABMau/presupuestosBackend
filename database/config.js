@@ -46,6 +46,9 @@ ManoObra.belongsTo(Usuario);
 Usuario.hasMany(Herramienta);
 Herramienta.belongsTo(Usuario);
 
+Usuario.hasMany(Gasto);
+Gasto.belongsTo(Usuario);
+
 Proyecto.hasOne(Presupuesto);
 Presupuesto.belongsTo(Proyecto);
 

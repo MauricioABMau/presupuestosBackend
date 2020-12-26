@@ -30,7 +30,7 @@ app.use('/api/item', require('./routes/item'))
 
 app.use('/api/material', require('./routes/material'))
 app.use('/api/herramienta', require('./routes/herramienta'))
-app.use('/api/manoobra', require('./routes/manoObra'))
+app.use('/api/manoObra', require('./routes/manoObra'))
 
 app.use('/api/todo', require('./routes/busqueda'));
 app.use('/api/upload', require('./routes/uploads'));

@@ -28,7 +28,6 @@ const crearProyectos = async(req, res = response) => {
 
         res.json({
             ok: true,
-            id,
             proyectoDB
         })
     } catch (error) {
@@ -76,6 +75,7 @@ const actualizarProyectos = async(req, res = response) => {
 
     }
 }
+
 const borrarProyectos = async(req, res = response) => {
     const id = req.params.id;
 
