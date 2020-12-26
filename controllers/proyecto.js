@@ -1,8 +1,6 @@
 const { response } = require('express');
 
 const { Proyecto, Usuario } = require('../database/config');
-const proyecto = require('../models/proyecto');
-
 
 const getProyectos = async(req, res = response) => {
 
@@ -61,7 +59,6 @@ const actualizarProyectos = async(req, res = response) => {
 
         const proyectoActualizado = await Proyecto.findByPk(id);
         await proyectoActualizado.update(cambiosProyecto);
-
 
         res.json({
             ok: true,

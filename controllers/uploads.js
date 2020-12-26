@@ -25,7 +25,6 @@ const fileUpload = (req, res = response) => {
         return res.status(400).json({
             ok: false,
             msg: 'No hay ningun archivo',
-            file: req.files
         });
     }
 
@@ -73,6 +72,7 @@ const fileUpload = (req, res = response) => {
 }
 
 const retornaImagen = (req, res = response) => {
+
     const tipo = req.params.tipo;
     const foto = req.params.foto;
 

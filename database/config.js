@@ -8,6 +8,7 @@ const Items = require('../models/item');
 const Materiales = require('../models/material');
 const Herramientas = require('../models/herramienta');
 const ManoObras = require('../models/manoObra');
+const Gastos = require('../models/gasto');
 
 
 
@@ -24,6 +25,7 @@ const Item = Items(sequelize, Sequelize);
 const Material = Materiales(sequelize, Sequelize);
 const Herramienta = Herramientas(sequelize, Sequelize);
 const ManoObra = ManoObras(sequelize, Sequelize);
+const Gasto = Gastos(sequelize, Sequelize);
 
 //Relacion de tablas
 Usuario.hasMany(Proyecto);
@@ -50,6 +52,9 @@ Presupuesto.belongsTo(Proyecto);
 Presupuesto.hasMany(Item);
 Item.belongsTo(Presupuesto);
 
+Presupuesto.hasOne(Gasto);
+Gasto.belongsTo(Presupuesto);
+
 Item.hasMany(Material);
 Material.belongsTo(Item);
 
@@ -75,5 +80,6 @@ module.exports = {
     Item,
     Material,
     Herramienta,
-    ManoObra
+    ManoObra,
+    Gasto
 }

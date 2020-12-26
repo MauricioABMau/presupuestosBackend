@@ -7,8 +7,6 @@ const { generarJWT } = require('../helpers/jwt');
 const getUsuarios = async(req, res) => {
     desde = Number(req.query.desde) || 0;
 
-
-
     const [usuarios, total] = await Promise.all([
         Usuario
         .findAll({
@@ -24,7 +22,6 @@ const getUsuarios = async(req, res) => {
         ok: true,
         usuarios,
         total,
-        id: req.id
     });
 }
 
@@ -55,7 +52,6 @@ const crearUsuario = async(req, res = response) => {
         //Generar el TOKEN
         const token = await generarJWT(usuario.id);
 
-
         res.json({
             ok: true,
             usuario,
@@ -72,6 +68,7 @@ const crearUsuario = async(req, res = response) => {
 }
 
 const actualizarUsuario = async(req, res = response) => {
+
     const id = req.params.id;
 
     try {
@@ -118,6 +115,7 @@ const actualizarUsuario = async(req, res = response) => {
 }
 
 const borrarUsuario = async(req, res = response) => {
+
     const id = req.params.id
 
     try {

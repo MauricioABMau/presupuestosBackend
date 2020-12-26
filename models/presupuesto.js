@@ -6,7 +6,11 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
         presupuesto_total: type.DOUBLE,
-        presupuesto_precio_unitario: type.DOUBLE
+        presupuesto_precio_unitario: type.DOUBLE,
+        utilidad: type.DOUBLE,
+        iva: type.DOUBLE,
+        it: type.DOUBLE,
+
     });
 
     return presupuesto

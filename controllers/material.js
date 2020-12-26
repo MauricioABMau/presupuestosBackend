@@ -6,8 +6,12 @@ const getMateriales = async(req, res = response) => {
         include: [{
             model: Item,
             include: [{
-                model: Usuario,
-            }],
+                    model: Usuario,
+                },
+                {
+                    model: Usuario,
+                }
+            ],
 
         }, {
             model: Usuario
