@@ -2,25 +2,30 @@ const { response } = require('express');
 const { Material, Item, Usuario } = require('../database/config');
 
 const getMateriales = async(req, res = response) => {
-    const material = await Material.findAll({
-        include: [{
-            model: Item,
-            include: [{
-                    model: Usuario,
-                },
-                {
-                    model: Usuario,
-                }
-            ],
+    desde = Number(req.query.desde) || 0;
 
-        }, {
-            model: Usuario
-        }]
-    })
+    const [material, total] = await Promise.all([
+        Material.findAll({
+            include: [{
+                model: Item,
+                include: [{
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }, {
+                model: Usuario,
+                attributes: ['nombre', 'email', 'id']
+            }],
+            limit: 5,
+            offset: desde
+        }),
+        Material.count()
+    ])
 
     res.json({
         ok: true,
         material,
+        total
     })
 }
 const crearMateriales = async(req, res = response) => {

@@ -1,4 +1,5 @@
 const { response } = require('express');
+
 const bcrypt = require('bcryptjs');
 
 const { Usuario } = require('../database/config');
@@ -45,6 +46,7 @@ const crearUsuario = async(req, res = response) => {
         //Encriptar password
         const salt = bcrypt.genSaltSync();
         usuario.password = bcrypt.hashSync(password, salt);
+        // usuario.imagen = path.join(__dirname, '../uploads/no-img.jpg');
 
         //Guardar usuario
         await usuario.save();

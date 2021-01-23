@@ -4,22 +4,32 @@ const { Presupuesto, Proyecto, Usuario } = require('../database/config');
 
 
 const getPresupuestos = async(req, res = response) => {
+    desde = Number(req.query.desde) || 0;
 
-    const presupuesto = await Presupuesto.findAll({
-        include: [{
-            model: Proyecto,
+    const [presupuesto, total] = await Promise.all([
+        Presupuesto
+        .findAll({
             include: [{
-                model: Usuario,
-            }],
+                model: Proyecto,
+                include: [{
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
 
-        }, {
-            model: Usuario
-        }]
-    })
+            }, {
+                model: Usuario
+            }],
+            limit: 5,
+            offset: desde
+        }),
+        Presupuesto.count()
+
+    ])
 
     res.json({
         ok: true,
         presupuesto,
+        total
     })
 }
 

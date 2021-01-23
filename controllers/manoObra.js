@@ -2,21 +2,30 @@ const { response } = require('express');
 const { ManoObra, Item, Usuario } = require('../database/config');
 
 const getManoObra = async(req, res = response) => {
-    const manoObra = await ManoObra.findAll({
-        include: [{
-            model: Item,
-            include: [{
-                model: Usuario,
-            }],
+    desde = Number(req.query.desde) || 0;
 
-        }, {
-            model: Usuario
-        }]
-    })
+    const [manoObra, total] = await Promise.all([
+        ManoObra.findAll({
+            include: [{
+                model: Item,
+                include: [{
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }, {
+                model: Usuario,
+                attributes: ['nombre', 'email', 'id']
+            }],
+            limit: 5,
+            offset: desde
+        }),
+        ManoObra.count()
+    ])
 
     res.json({
         ok: true,
         manoObra,
+        total
     })
 }
 const crearManoObra = async(req, res = response) => {

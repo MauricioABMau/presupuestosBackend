@@ -2,21 +2,31 @@ const { response } = require('express');
 const { Herramienta, Item, Usuario } = require('../database/config');
 
 const getHerramientas = async(req, res = response) => {
-    const herramienta = await Herramienta.findAll({
-        include: [{
-            model: Item,
-            include: [{
-                model: Usuario,
-            }],
+    desde = Number(req.query.desde) || 0;
 
-        }, {
-            model: Usuario
-        }]
-    })
+    const [herramienta, total] = await Promise.all([
+        Herramienta.findAll({
+            include: [{
+                model: Item,
+                include: [{
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+
+            }, {
+                model: Usuario,
+                attributes: ['nombre', 'email', 'id']
+            }],
+            limit: 5,
+            offset: desde
+        }),
+        Item.count()
+    ])
 
     res.json({
         ok: true,
         herramienta,
+        total
     })
 }
 const crearHerramientas = async(req, res = response) => {
