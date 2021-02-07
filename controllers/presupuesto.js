@@ -33,6 +33,38 @@ const getPresupuestos = async(req, res = response) => {
     })
 }
 
+const getPresupuestoById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+        const [presupuesto] = await Promise.all([
+            Presupuesto
+            .findByPk(id, {
+                include: [{
+                    model: Proyecto,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+
+                }, {
+                    model: Usuario
+                }]
+            }),
+
+        ])
+        res.json({
+            ok: true,
+            presupuesto,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
+
 const crearPresupuestos = async(req, res = response) => {
     const proId = req.params.proId;
     const id = req.id;
@@ -48,7 +80,7 @@ const crearPresupuestos = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            presupuesto: presupuestoDB
+            presupuestoDB: presupuestoDB
         })
     } catch (error) {
         console.log(error);
@@ -129,5 +161,6 @@ module.exports = {
     getPresupuestos,
     crearPresupuestos,
     actualizarPresupuestos,
-    borrarPresupuestos
+    borrarPresupuestos,
+    getPresupuestoById
 }

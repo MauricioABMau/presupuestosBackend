@@ -28,6 +28,40 @@ const getManoObra = async(req, res = response) => {
         total
     })
 }
+
+const getManoObraById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+
+        const [manoObra] = await Promise.all([
+            ManoObra
+            .findByPk(id, {
+                include: [{
+                    model: Item,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+                }, {
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }),
+
+        ])
+
+        res.json({
+            ok: true,
+            manoObra,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
 const crearManoObra = async(req, res = response) => {
     const itId = req.params.preId;
     const id = req.id;
@@ -43,7 +77,7 @@ const crearManoObra = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            manoObra: manoObraDB
+            manoObraDB: manoObraDB
         })
     } catch (error) {
         console.log(error);
@@ -123,5 +157,6 @@ module.exports = {
     getManoObra,
     crearManoObra,
     actualizarManoObra,
-    borrarManoObra
+    borrarManoObra,
+    getManoObraById
 }

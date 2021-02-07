@@ -28,6 +28,40 @@ const getMateriales = async(req, res = response) => {
         total
     })
 }
+
+const getMaterialById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+
+        const [material] = await Promise.all([
+            Material
+            .findByPk(id, {
+                include: [{
+                    model: Item,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+                }, {
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }),
+
+        ])
+
+        res.json({
+            ok: true,
+            material,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
 const crearMateriales = async(req, res = response) => {
     const itId = req.params.preId;
     const id = req.id;
@@ -43,7 +77,7 @@ const crearMateriales = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            material: materialDB
+            materialDB: materialDB
         })
     } catch (error) {
         console.log(error);
@@ -123,5 +157,6 @@ module.exports = {
     getMateriales,
     crearMateriales,
     actualizarMateriales,
-    borrarMateriales
+    borrarMateriales,
+    getMaterialById
 }

@@ -24,6 +24,31 @@ const getProyectos = async(req, res = response) => {
         total
     })
 }
+const getProyectosById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+        const [proyecto] = await Promise.all([
+            Proyecto
+            .findByPk(id, {
+                include: [{
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }]
+            }),
+
+        ])
+        res.json({
+            ok: true,
+            proyecto,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
 const crearProyectos = async(req, res = response) => {
 
     const id = req.id;
@@ -121,5 +146,6 @@ module.exports = {
     getProyectos,
     crearProyectos,
     actualizarProyectos,
-    borrarProyectos
+    borrarProyectos,
+    getProyectosById
 }

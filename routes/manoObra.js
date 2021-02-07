@@ -11,12 +11,13 @@ const {
     getManoObra,
     crearManoObra,
     actualizarManoObra,
-    borrarManoObra
+    borrarManoObra,
+    getManoObraById
 } = require('../controllers/manoObra')
 
 const router = Router();
 
-router.get('/', getManoObra);
+router.get('/', validarJWT, getManoObra);
 
 router.post('/:itId', [
         validarJWT,
@@ -35,7 +36,12 @@ router.put('/:id', [
     actualizarManoObra);
 
 router.delete('/:id',
+    validarJWT,
     borrarManoObra)
+
+router.get('/:id',
+    validarJWT,
+    getManoObraById)
 
 
 module.exports = router;

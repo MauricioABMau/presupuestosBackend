@@ -11,12 +11,13 @@ const {
     getProyectos,
     crearProyectos,
     actualizarProyectos,
-    borrarProyectos
+    borrarProyectos,
+    getProyectosById
 } = require('../controllers/proyecto')
 
 const router = Router();
 
-router.get('/', getProyectos);
+router.get('/', validarJWT, getProyectos);
 
 router.post('/', [
         validarJWT,
@@ -39,6 +40,10 @@ router.put('/:id', [
 router.delete('/:id',
     validarJWT,
     borrarProyectos)
+
+router.get('/:id',
+    validarJWT,
+    getProyectosById)
 
 
 module.exports = router;

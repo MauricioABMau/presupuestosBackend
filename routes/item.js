@@ -11,12 +11,13 @@ const {
     getItems,
     crearItems,
     actualizarItems,
-    borrarItems
+    borrarItems,
+    getItemById
 } = require('../controllers/item')
 
 const router = Router();
 
-router.get('/', getItems);
+router.get('/', validarJWT, getItems);
 
 router.post('/:preId', [
         validarJWT,
@@ -39,7 +40,12 @@ router.put('/:id', [
     actualizarItems);
 
 router.delete('/:id',
+    validarJWT,
     borrarItems)
+
+router.get('/:id',
+    validarJWT,
+    getItemById)
 
 
 module.exports = router;

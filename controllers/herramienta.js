@@ -29,6 +29,39 @@ const getHerramientas = async(req, res = response) => {
         total
     })
 }
+
+const getHerramientaById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+        const [herramienta] = await Promise.all([
+            Herramienta
+            .findByPk(id, {
+                include: [{
+                    model: Item,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+
+                }, {
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }),
+
+        ])
+        res.json({
+            ok: true,
+            herramienta,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
 const crearHerramientas = async(req, res = response) => {
     const itId = req.params.preId;
     const id = req.id;
@@ -44,7 +77,7 @@ const crearHerramientas = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            herramienta: herramientaDB
+            herramientaDB: herramientaDB
         })
     } catch (error) {
         console.log(error);
@@ -124,5 +157,6 @@ module.exports = {
     getHerramientas,
     crearHerramientas,
     actualizarHerramientas,
-    borrarHerramientas
+    borrarHerramientas,
+    getHerramientaById
 }

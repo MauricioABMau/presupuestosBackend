@@ -12,11 +12,12 @@ const {
     crearGasto,
     actualizarGasto,
     borrarGasto
-} = require('../controllers/gasto')
+} = require('../controllers/gasto');
+const { getHerramientaById } = require('../controllers/herramienta');
 
 const router = Router();
 
-router.get('/', getGasto);
+router.get('/', validarJWT, getGasto);
 
 router.post('/:preId', [
         validarJWT,
@@ -49,7 +50,12 @@ router.put('/:id', [
     actualizarGasto);
 
 router.delete('/:id',
+    validarJWT,
     borrarGasto)
+
+router.get('/:id',
+    validarJWT,
+    getHerramientaById)
 
 
 module.exports = router;

@@ -29,6 +29,40 @@ const getItems = async(req, res = response) => {
         total
     })
 }
+
+const getItemById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+        const [item] = await Promise.all([
+            Item
+            .findByPk(id, {
+                include: [{
+                    model: Presupuesto,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+
+                }, {
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }),
+
+        ])
+        res.json({
+            ok: true,
+            item,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
+
 const crearItems = async(req, res = response) => {
     const preId = req.params.preId;
     const id = req.id;
@@ -44,7 +78,7 @@ const crearItems = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            item: itemDB
+            itemDB: itemDB
         })
     } catch (error) {
         console.log(error);
@@ -124,5 +158,6 @@ module.exports = {
     getItems,
     crearItems,
     actualizarItems,
-    borrarItems
+    borrarItems,
+    getItemById
 }

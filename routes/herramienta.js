@@ -11,12 +11,13 @@ const {
     getHerramientas,
     crearHerramientas,
     actualizarHerramientas,
-    borrarHerramientas
+    borrarHerramientas,
+    getHerramientaById
 } = require('../controllers/herramienta')
 
 const router = Router();
 
-router.get('/', getHerramientas);
+router.get('/', validarJWT, getHerramientas);
 
 router.post('/:itId', [
         validarJWT,
@@ -37,7 +38,13 @@ router.put('/:id', [
     actualizarHerramientas);
 
 router.delete('/:id',
+    validarJWT,
     borrarHerramientas)
+
+router.get('/:id',
+    validarJWT,
+    getHerramientaById)
+
 
 
 module.exports = router;

@@ -11,12 +11,13 @@ const {
     getMateriales,
     crearMateriales,
     actualizarMateriales,
-    borrarMateriales
+    borrarMateriales,
+    getMaterialById
 } = require('../controllers/material')
 
 const router = Router();
 
-router.get('/', getMateriales);
+router.get('/', validarJWT, getMateriales);
 
 router.post('/:itId', [
         validarJWT,
@@ -37,7 +38,11 @@ router.put('/:id', [
     actualizarMateriales);
 
 router.delete('/:id',
+    validarJWT,
     borrarMateriales)
 
+router.get('/:id',
+    validarJWT,
+    getMaterialById)
 
 module.exports = router;

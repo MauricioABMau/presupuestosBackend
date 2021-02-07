@@ -11,12 +11,13 @@ const {
     getPresupuestos,
     crearPresupuestos,
     actualizarPresupuestos,
-    borrarPresupuestos
+    borrarPresupuestos,
+    getPresupuestoById
 } = require('../controllers/presupuesto')
 
 const router = Router();
 
-router.get('/', getPresupuestos);
+router.get('/', validarJWT, getPresupuestos);
 
 router.post('/:proId', [
         validarJWT,
@@ -41,7 +42,12 @@ router.put('/:id', [
     actualizarPresupuestos);
 
 router.delete('/:id',
+    validarJWT,
     borrarPresupuestos)
+
+router.get('/:id',
+    validarJWT,
+    getPresupuestoById)
 
 
 module.exports = router;

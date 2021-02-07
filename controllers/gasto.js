@@ -29,6 +29,39 @@ const getGasto = async(req, res = response) => {
         total
     })
 }
+
+const getGastoById = async(req, res = response) => {
+    const id = req.params.id;
+
+    try {
+        const [gasto] = await Promise.all([
+            Gasto
+            .findByPk(id, {
+                include: [{
+                    model: Presupuesto,
+                    include: [{
+                        model: Usuario,
+                        attributes: ['nombre', 'email', 'id']
+                    }],
+
+                }, {
+                    model: Usuario,
+                    attributes: ['nombre', 'email', 'id']
+                }],
+            }),
+
+        ])
+        res.json({
+            ok: true,
+            gasto,
+        })
+    } catch (error) {
+        res.json({
+            ok: false,
+            msg: 'Hamble con el administrador'
+        })
+    }
+}
 const crearGasto = async(req, res = response) => {
     const preId = req.params.preId;
     const id = req.id;
@@ -44,7 +77,7 @@ const crearGasto = async(req, res = response) => {
         res.json({
             ok: true,
             id,
-            gasto: gastoDB
+            gastoDB: gastoDB
         })
     } catch (error) {
         console.log(error);
@@ -124,5 +157,6 @@ module.exports = {
     getGasto,
     crearGasto,
     actualizarGasto,
-    borrarGasto
+    borrarGasto,
+    getGastoById
 }
