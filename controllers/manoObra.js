@@ -63,7 +63,7 @@ const getManoObraById = async(req, res = response) => {
     }
 }
 const crearManoObra = async(req, res = response) => {
-    const itId = req.params.preId;
+    const itId = req.params.itId;
     const id = req.id;
     const manoObra = new ManoObra({
         usuarioId: id,

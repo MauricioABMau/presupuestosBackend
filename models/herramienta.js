@@ -8,6 +8,7 @@ module.exports = (sequelize, type) => {
         nombre_herramienta: type.STRING,
         tipo: type.STRING,
         precio_herramienta: type.DOUBLE,
+        cantidad_herramienta: type.STRING,
     });
 
     return herramienta

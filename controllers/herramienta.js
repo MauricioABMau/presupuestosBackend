@@ -63,7 +63,7 @@ const getHerramientaById = async(req, res = response) => {
     }
 }
 const crearHerramientas = async(req, res = response) => {
-    const itId = req.params.preId;
+    const itId = req.params.itId;
     const id = req.id;
     const herramienta = new Herramienta({
         usuarioId: id,

@@ -24,6 +24,7 @@ router.post('/:itId', [
         check('nombre_herramienta', "El nombre de la herramienta es requerido").not().isEmpty(),
         check('tipo', "El tipo de herramienta es requerido").not().isEmpty(),
         check('precio_herramienta', "El precio de la herramienta  es requerido").not().isEmpty(),
+        check('cantidad_herramienta', "La cantidad es requerida").not().isEmpty(),
         validarCampos
     ],
     crearHerramientas)

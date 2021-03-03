@@ -23,6 +23,7 @@ router.post('/:itId', [
         validarJWT,
         check('cargo', "El nombre del material es requerido").not().isEmpty(),
         check('sueldo', "La cantidad es requerido").not().isEmpty(),
+        check('nro_personal', "El numero de personas es requerido").not().isEmpty(),
         validarCampos
     ],
     crearManoObra)
