@@ -10,6 +10,11 @@ module.exports = (sequelize, type) => {
         utilidad: type.DOUBLE,
         iva: type.DOUBLE,
         it: type.DOUBLE,
+        actividad: type.STRING,
+        unidad: type.STRING,
+        codigo: type.STRING,
+        numero: type.INTEGER,
+        moneda: type.STRING
 
     });
 
