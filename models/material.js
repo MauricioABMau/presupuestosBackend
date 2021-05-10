@@ -6,6 +6,7 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
         nombre_material: type.STRING,
+        unidad: type.STRING,
         precio_material: type.STRING,
         cantidad_material: type.STRING,
     });

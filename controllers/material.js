@@ -16,7 +16,7 @@ const getMateriales = async(req, res = response) => {
                 model: Usuario,
                 attributes: ['nombre', 'email', 'id']
             }],
-            limit: 5,
+            limit: 50,
             offset: desde
         }),
         Material.count()

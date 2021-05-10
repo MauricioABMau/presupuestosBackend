@@ -32,6 +32,7 @@ router.put('/:id', [
         validarJWT,
         check('cargo', "El nombre del material es requerido").not().isEmpty(),
         check('sueldo', "La cantidad es requerido").not().isEmpty(),
+        check('horas', "La horas es requerido").not().isEmpty(),
         validarCampos
     ],
     actualizarManoObra);

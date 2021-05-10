@@ -7,6 +7,7 @@ module.exports = (sequelize, type) => {
         },
         cargo: type.STRING,
         sueldo: type.DOUBLE,
+        horas: type.DOUBLE,
         nro_personal: type.STRING,
     });
 

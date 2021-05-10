@@ -22,6 +22,7 @@ router.get('/', validarJWT, getMateriales);
 router.post('/:itId', [
         validarJWT,
         check('nombre_material', "El nombre del material es requerido").not().isEmpty(),
+        check('unidad', "La unidad del material es requerido").not().isEmpty(),
         check('precio_material', "El precio del material  es requerido").not().isEmpty(),
         check('cantidad_material', "La cantidad es requerida").not().isEmpty(),
         validarCampos
@@ -31,6 +32,7 @@ router.post('/:itId', [
 router.put('/:id', [
         validarJWT,
         check('nombre_material', "El nombre del material es requerido").not().isEmpty(),
+        check('unidad', "La unidad del material es requerido").not().isEmpty(),
         check('precio_material', "El precio del material  es requerido").not().isEmpty(),
         validarCampos
     ],

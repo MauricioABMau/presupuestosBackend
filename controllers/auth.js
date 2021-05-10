@@ -40,6 +40,8 @@ const login = async(req, res = response) => {
 
         res.json({
             ok: true,
+            estado: usuarioDB.estado,
+            rol: usuarioDB.rol,
             token,
             menu: getMenuFrontEnd(usuarioDB.rol)
         })
@@ -56,21 +58,24 @@ const googleSignIn = async(req, res = response) => {
 
     const googleToken = req.body.token;
     try {
-        const { name, email, picture } = await googleVerify(googleToken);
+        // console.log("Token google");
+        // console.log(googleToken);
+        const { given_name, family_name, email, picture } = await googleVerify(googleToken);
 
         const usuarioDB = await Usuario.findOne({ where: { email } });
         let usuario;
         if (!usuarioDB) {
             //Si no existe el usuario
             usuario = new Usuario({
-                nombre: name,
-                email,
+                nombre: given_name,
+                apellido: family_name,
+                email: email,
                 password: '@@@',
                 imagen: picture,
                 google: true
             });
         } else {
-            console.log("ENTRA");
+
             //Existe usuario
             usuario = usuarioDB;
             usuario.google = true;
@@ -78,12 +83,15 @@ const googleSignIn = async(req, res = response) => {
         //Guardar en base de datos
         await usuario.save();
 
+        console.log('USUARIO GOOGLE');
+        console.log(usuario);
         //Generar el TOKEN
         const token = await generarJWT(usuario.id);
 
         res.json({
             ok: true,
             token,
+            rol: usuarioDB.rol,
             menu: getMenuFrontEnd(usuario.rol)
         })
 
@@ -104,7 +112,6 @@ const renewToken = async(req, res = response) => {
 
     //Obtener el usuario
     const usuario = await Usuario.findByPk(id);
-
     res.json({
         ok: true,
         token,

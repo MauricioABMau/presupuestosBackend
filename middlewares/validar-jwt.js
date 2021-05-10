@@ -64,7 +64,9 @@ const validarADMIN_ROLE_o_MismoUsuario = async(req, res, next) => {
                 msg: 'Usuario no existe'
             });
         }
-        if (usuarioDB.role === 'ADMIN_ROLE' || parseInt(uid, 10) === parseInt(id, 10)) {
+        console.log('usuario rol');
+        console.log(usuarioDB.rol);
+        if (usuarioDB.rol === 'ADMIN_ROLE' || parseInt(uid, 10) === parseInt(id, 10)) {
             next();
         } else {
             return res.status(403).json({

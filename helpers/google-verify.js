@@ -8,9 +8,9 @@ const googleVerify = async(token) => {
         //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
     const payload = ticket.getPayload();
-    const { name, email, picture } = payload;
+    const { name, email, picture, given_name, family_name } = payload;
 
-    return { name, email, picture };
+    return { name, email, picture, given_name, family_name };
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
 }
